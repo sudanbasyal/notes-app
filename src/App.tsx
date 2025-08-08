@@ -7,13 +7,23 @@ import Button from "./components/ui/Button";
 import { PlusIcon, Search } from "lucide-react";
 import TextField from "./components/ui/TextField";
 import Modal from "./components/ui/Modal";
+import { MultiSelect } from "./components/ui/MultiSelect";
 
 const validationSchema = Yup.object({
   search: Yup.string().required("Search is required"),
 });
 function App() {
   const [openModal, setOpenModal] = useState(false);
-
+const tagItems = [
+  { id: 1, label: "Family", color: "bg-pink-500" },
+  { id: 2, label: "Tasks", color: "bg-purple-500" },
+  { id: 3, label: "Personal", color: "bg-green-500" },
+  { id: 4, label: "Meetings", color: "bg-cyan-500" },
+  { id: 5, label: "Shopping", color: "bg-teal-500" },
+  { id: 6, label: "Planning", color: "bg-orange-500" },
+  { id: 7, label: "Travel", color: "bg-blue-500" },
+];
+const [selectedTags, setSelectedTags] = useState<typeof tagItems>([]);
   return (
     <div className="App">
       <h1 className="text-3xl font-bold underline text-blue-500">
@@ -72,6 +82,26 @@ function App() {
           <p className="mb-4">This is the modal content.</p>
           <Button text="Close" onClick={() => setOpenModal(false)} />
         </Modal>
+        <div className="p-6 space-y-4">
+      <MultiSelect
+        items={tagItems}
+        placeholder="Search tags..."
+        onChange={(items) => setSelectedTags(items)}
+      />
+
+      {/* Display selected tags as chips */}
+      <div className="flex gap-2 flex-wrap">
+        {selectedTags.map((tag) => (
+          <span
+            key={tag.id}
+            className="flex items-center gap-1 px-2 py-0.5 bg-gray-200 rounded-full text-sm"
+          >
+            <span className={`w-2.5 h-2.5 rounded-full ${tag.color}`} />
+            {tag.label}
+          </span>
+        ))}
+      </div>
+    </div>
       </div>
     </div>
   );
