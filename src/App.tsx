@@ -8,6 +8,7 @@ import { PlusIcon, Search } from "lucide-react";
 import TextField from "./components/ui/TextField";
 import Modal from "./components/ui/Modal";
 import { MultiSelect } from "./components/ui/MultiSelect";
+import Tiptap from "./components/rich-text-editor/TiptTap";
 
 const validationSchema = Yup.object({
   search: Yup.string().required("Search is required"),
@@ -24,8 +25,19 @@ const tagItems = [
   { id: 7, label: "Travel", color: "bg-blue-500" },
 ];
 const [selectedTags, setSelectedTags] = useState<typeof tagItems>([]);
+const [post, setPost] = useState({
+    type: 'doc',
+    content: [
+      
+    ]
+  });
+
+  const onChange = (content: any) => {
+    setPost(content);
+    console.log('Editor JSON content:', content);
+  };
   return (
-    <div className="App">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-3xl font-bold underline text-blue-500">
         Hello world!
       </h1>
@@ -103,6 +115,7 @@ const [selectedTags, setSelectedTags] = useState<typeof tagItems>([]);
       </div>
     </div>
       </div>
+      <Tiptap content={post} onChange={onChange}/>
     </div>
   );
 }
