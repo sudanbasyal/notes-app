@@ -1,17 +1,17 @@
-import { LoginValues } from "../../interface/auth";
+import { AuthResponse, LoginValues, SignupValues } from "../../interface/auth";
 import { api } from "../api";
 
 // authApi.ts
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<any, LoginValues>({
+    login: builder.mutation<AuthResponse, LoginValues>({
       query: (body) => ({
         url: '/auth/login',
         method: 'POST',
         body,
       }),
     }),
-    signup: builder.mutation<any, LoginValues>({
+    signup: builder.mutation<void, SignupValues>({
       query: (body) => ({
         url: '/auth/register',
         method: 'POST',

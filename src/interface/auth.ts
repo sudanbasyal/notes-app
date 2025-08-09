@@ -1,3 +1,4 @@
+import { User } from "./user";
 
 export interface LoginValues {
   email: string;
@@ -13,4 +14,12 @@ export interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   usedToken: string | null;
+}
+
+export interface AuthResponse {
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  user: User;
 }
