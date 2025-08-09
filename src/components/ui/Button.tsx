@@ -7,13 +7,22 @@ type Props = {
   text: string;
   onClick?: () => void;
   css?: string;
+  disabled?: boolean;
 };
 
-const Button = ({ type = "button", icon, text, onClick, css }: Props) => {
+const Button = ({
+  type = "button",
+  icon,
+  text,
+  onClick,
+  css,
+  disabled = false,
+}: Props) => {
   return (
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         "inline-flex justify-center items-center gap-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/80 transition-colors duration-200",
         css

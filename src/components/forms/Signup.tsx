@@ -6,7 +6,9 @@ import Button from "../ui/Button";
 
 const signupSchema = Yup.object({
   name: Yup.string().required("Name is required"),
-  email: Yup.string().email("Please enter a valid email").required("Email is required"),
+  email: Yup.string()
+    .email("Please enter a valid email")
+    .required("Email is required"),
   password: Yup.string()
     .required("Password is required")
     .min(8)
@@ -42,7 +44,7 @@ const SignupForm = ({ onSubmit }: SignupFormProps) => {
       onSubmit={onSubmit}
       validationSchema={signupSchema}
     >
-      {() => (
+      {({ isSubmitting }) => (
         <Form className="flex flex-col gap-2">
           <TextField
             label="Name"
@@ -72,7 +74,12 @@ const SignupForm = ({ onSubmit }: SignupFormProps) => {
             type="password"
             css="text-left"
           />
-          <Button type="submit" text="Sign Up" css="w-full mt-2" />
+          <Button
+            type="submit"
+            text="Login"
+            css="w-full mt-2"
+            disabled={isSubmitting}
+          />
         </Form>
       )}
     </Formik>

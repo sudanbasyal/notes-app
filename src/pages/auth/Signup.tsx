@@ -1,5 +1,5 @@
 import { FormikHelpers } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignupForm from "../../components/forms/Signup";
 import withAuthCard from "../../components/withAuthCard";
 import { SignupValues } from "../../interface/auth";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useSignupMutation } from "../../features/auth/authService";
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [signup] = useSignupMutation();
   const handleSignup = async (
     values: SignupValues,
@@ -18,10 +19,13 @@ const Signup = () => {
       toast.success(
         "User Signup successful!, please check your email for verification."
       );
+      navigate('/signin')
     } catch (error) {
       errorHandler(error, "Signup failed. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
-    console.log(values);
+
   };
   return (
     <section className="flex flex-col gap-2 md:gap-4">

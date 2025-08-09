@@ -26,7 +26,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
       onSubmit={onSubmit}
       validationSchema={LoginSchema}
     >
-      {() => {
+      {({ isSubmitting }) => {
         return (
           <Form className="flex flex-col gap-2">
             <TextField
@@ -43,7 +43,12 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
               type="password"
               css="text-left"
             />
-            <Button type="submit" text="Login" css="w-full mt-2" />
+            <Button
+              type="submit"
+              text="Login"
+              css="w-full mt-2"
+              disabled={isSubmitting}
+            />
           </Form>
         );
       }}

@@ -32,6 +32,8 @@ const Login = () => {
       toast.success("Login successful!");
     } catch (error) {
       errorHandler(error, "Login failed. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
   };
   return (
