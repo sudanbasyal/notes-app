@@ -10,33 +10,39 @@ import Modal from "./components/ui/Modal";
 import { MultiSelect } from "./components/ui/MultiSelect";
 import Tiptap from "./components/rich-text-editor/TiptTap";
 import AppRoutes from "./routes/AppRoutes";
+import { useSelector } from "react-redux";
+import { RootState, useTypedSelector } from "./store";
+import { Toaster } from "sonner";
 
 // const validationSchema = Yup.object({
 //   search: Yup.string().required("Search is required"),
 // });
 function App() {
-//   const [openModal, setOpenModal] = useState(false);
-// const tagItems = [
-//   { id: 1, label: "Family", color: "bg-pink-500" },
-//   { id: 2, label: "Tasks", color: "bg-purple-500" },
-//   { id: 3, label: "Personal", color: "bg-green-500" },
-//   { id: 4, label: "Meetings", color: "bg-cyan-500" },
-//   { id: 5, label: "Shopping", color: "bg-teal-500" },
-//   { id: 6, label: "Planning", color: "bg-orange-500" },
-//   { id: 7, label: "Travel", color: "bg-blue-500" },
-// ];
-// const [selectedTags, setSelectedTags] = useState<typeof tagItems>([]);
-// const [post, setPost] = useState({
-//     type: 'doc',
-//     content: [
-      
-//     ]
-//   });
+  // const auth = useTypedSelector((state) => state.auth)
+  // console.log(auth)
+  //   const [openModal, setOpenModal] = useState(false);
+  // const tagItems = [
+  //   { id: 1, label: "Family", color: "bg-pink-500" },
+  //   { id: 2, label: "Tasks", color: "bg-purple-500" },
+  //   { id: 3, label: "Personal", color: "bg-green-500" },
+  //   { id: 4, label: "Meetings", color: "bg-cyan-500" },
+  //   { id: 5, label: "Shopping", color: "bg-teal-500" },
+  //   { id: 6, label: "Planning", color: "bg-orange-500" },
+  //   { id: 7, label: "Travel", color: "bg-blue-500" },
+  // ];
+  // const [selectedTags, setSelectedTags] = useState<typeof tagItems>([]);
+  // const [post, setPost] = useState({
+  //     type: 'doc',
+  //     content: [
 
-//   const onChange = (content: any) => {
-//     setPost(content);
-//     console.log('Editor JSON content:', content);
-//   };
+  //     ]
+  //   });
+
+  //   const onChange = (content: any) => {
+  //     setPost(content);
+  //     console.log('Editor JSON content:', content);
+  //   };
+
   return (
     // <div className="flex flex-col items-center justify-center min-h-screen">
     //   <h1 className="text-3xl font-bold underline text-blue-500">
@@ -118,8 +124,9 @@ function App() {
     //   </div>
     //   <Tiptap content={post} onChange={onChange}/>
     // </div>
- <main className="min-h-[calc(100vh-70px)] flex justify-center items-center">
-    <AppRoutes/>
+    <main className="min-h-[calc(100vh-70px)] flex justify-center items-center">
+      <AppRoutes />
+      <Toaster richColors />
     </main>
   );
 }

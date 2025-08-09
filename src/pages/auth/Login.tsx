@@ -2,14 +2,37 @@ import { FormikHelpers } from "formik";
 import LoginForm from "../../components/forms/Login";
 import withAuthCard from "../../components/withAuthCard";
 import { LoginValues } from "../../interface/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../features/auth/authService";
+import { useDispatch } from "react-redux";
+import { authTokenChange } from "../../features/auth/authSlice";
+import { toast } from "sonner";
+import { errorHandler } from "../../lib/utils";
 
 const Login = () => {
-  const handleLogin = (
+  const dispatch = useDispatch();
+  const [login] = useLoginMutation();
+  const navigate = useNavigate();
+
+  const handleLogin = async (
     values: LoginValues,
     { setSubmitting }: FormikHelpers<LoginValues>
   ) => {
     console.log(values);
+    try {
+      const res = await login(values).unwrap();
+      console.log(res);
+      dispatch(
+        authTokenChange({
+          accessToken: res.data.accessToken,
+          refreshToken: res.data.refreshToken,
+        })
+      );
+      navigate("/notes");
+      toast.success("Login successful!");
+    } catch (error) {
+      errorHandler(error, "Login failed. Please try again.");
+    }
   };
   return (
     <section className="flex flex-col gap-2 sm:gap-4">

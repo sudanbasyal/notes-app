@@ -1,11 +1,10 @@
-
+import { TextStyleKit } from "@tiptap/extension-text-style";
 import { EditorContent, JSONContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import MenuBar from "./MenuBar";
-import { TextStyleKit } from "@tiptap/extension-text-style";
 export const extensions = [TextStyleKit, StarterKit];
 interface TiptapProps {
-  content: JSONContent; 
+  content: JSONContent;
   onChange?: (content: JSONContent) => void;
 }
 
@@ -21,7 +20,6 @@ const Tiptap = ({ content, onChange }: TiptapProps) => {
     },
     onUpdate: ({ editor }) => {
       if (onChange) {
-        
         const jsonContent = editor.getJSON();
         onChange(jsonContent);
       }

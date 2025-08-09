@@ -13,7 +13,7 @@ export default function AppRoutes() {
         <Route path="/signup" element={<Signup />} />
       </Route>
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<>dashboard</>} />
+        <Route path="/notes" element={<>dashboard</>} />
       </Route>
     </Routes>
   );

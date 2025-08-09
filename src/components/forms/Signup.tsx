@@ -72,7 +72,7 @@ const SignupForm = ({ onSubmit }: SignupFormProps) => {
             type="password"
             css="text-left"
           />
-          <Button type="submit" text="Login" css="w-full mt-2" />
+          <Button type="submit" text="Sign Up" css="w-full mt-2" />
         </Form>
       )}
     </Formik>
