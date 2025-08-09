@@ -13,7 +13,6 @@ interface TextFieldProps {
   endAdornment?: React.ReactNode;
 }
 
-// Variant styles for better maintainability
 const textFieldVariants = {
   base: "w-full py-2 rounded-lg outline-none transition-all duration-200 focus:ring-2",
   variants: {
@@ -48,7 +47,6 @@ const TextField = ({
   const [field, meta] = useField(props.name);
   const hasError = meta.touched && meta.error;
 
-  // Determine padding based on adornments
   const getPaddingClasses = () => {
     if (startAdornment && endAdornment) {
       return textFieldVariants.padding.both;
@@ -61,11 +59,11 @@ const TextField = ({
   };
 
   return (
-    <div className="mb-4">
+    <div className="">
       {label && (
         <label
           htmlFor={props.name}
-          className="block mb-1 font-medium text-gray-700"
+          className="block mb-1 font-medium text-gray-700 text-left"
         >
           {label}
         </label>
@@ -92,7 +90,9 @@ const TextField = ({
           </div>
         )}
       </div>
-      {hasError && <p className="text-sm text-red-500 mt-1">{meta.error}</p>}
+      {hasError && (
+        <p className="text-sm text-red-500 mt-1 text-start">{meta.error}</p>
+      )}
     </div>
   );
 };

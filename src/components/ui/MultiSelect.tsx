@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 type MenuItem = {
   id: number;
   label: string;
-  color: string; // Tailwind color classes
+  color: string; 
 };
 
 type MultiSelectProps = {
