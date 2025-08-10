@@ -1,6 +1,8 @@
 import { useField } from "formik";
-import React from "react";
+import { Eye, EyeOff } from "lucide-react"; // Add this import
+import React, { useState } from "react"; // Add useState
 import { cn } from "../../lib/utils";
+import { textFieldVariants } from "../../constants/textFieldVariants";
 
 interface TextFieldProps {
   label?: string;
@@ -13,49 +15,47 @@ interface TextFieldProps {
   endAdornment?: React.ReactNode;
 }
 
-const textFieldVariants = {
-  base: "w-full py-2 rounded-lg outline-none transition-all duration-200 focus:ring-2",
-  variants: {
-    bordered: {
-      default:
-        "border border-gray-300 bg-white focus:ring-primary/40 focus:border-primary/40",
-      error:
-        "border border-red-500 bg-white focus:ring-red-500 focus:border-red-500",
-    },
-    ghost: {
-      default:
-        "bg-transparent border border-transparent focus:border-primary/40 focus:ring-primary/40",
-      error:
-        "bg-transparent border border-transparent focus:border-red-500 focus:ring-red-500",
-    },
-  },
-  padding: {
-    withStartAdornment: "pl-10 pr-3",
-    withEndAdornment: "pr-10 pl-3",
-    both: "px-10",
-    default: "px-3",
-  },
-};
+
 
 const TextField = ({
   label,
   variant = "bordered",
   startAdornment,
   endAdornment,
+  type = "text",
   ...props
 }: TextFieldProps) => {
   const [field, meta] = useField(props.name);
+  const [showPassword, setShowPassword] = useState(false);
   const hasError = meta.touched && meta.error;
 
   const getPaddingClasses = () => {
-    if (startAdornment && endAdornment) {
+    if (startAdornment && (endAdornment || type === "password")) {
       return textFieldVariants.padding.both;
     } else if (startAdornment) {
       return textFieldVariants.padding.withStartAdornment;
-    } else if (endAdornment) {
+    } else if (endAdornment || type === "password") {
       return textFieldVariants.padding.withEndAdornment;
     }
     return textFieldVariants.padding.default;
+  };
+
+  const renderPasswordToggle = () => {
+    if (type !== "password") return null;
+
+    return (
+      <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute right-3 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+      >
+        {showPassword ? (
+          <EyeOff size={18} className="cursor-pointer" />
+        ) : (
+          <Eye size={18} className="cursor-pointer" />
+        )}
+      </button>
+    );
   };
 
   return (
@@ -77,6 +77,7 @@ const TextField = ({
         <input
           {...field}
           {...props}
+          type={type === "password" ? (showPassword ? "text" : "password") : type}
           className={cn(
             textFieldVariants.base,
             textFieldVariants.variants[variant][hasError ? "error" : "default"],
@@ -84,7 +85,7 @@ const TextField = ({
             props.css
           )}
         />
-        {endAdornment && (
+        {type === "password" ? renderPasswordToggle() : endAdornment && (
           <div className="absolute right-3 text-gray-400 z-10">
             {endAdornment}
           </div>
