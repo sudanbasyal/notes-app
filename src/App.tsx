@@ -124,7 +124,7 @@ function App() {
     //   </div>
     //   <Tiptap content={post} onChange={onChange}/>
     // </div>
-    <main className="min-h-[calc(100vh-70px)] flex justify-center items-center">
+    <main className="min-h-screen ">
       <AppRoutes />
       <Toaster richColors />
     </main>

@@ -1,11 +1,11 @@
 import { FormikHelpers } from "formik";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import SignupForm from "../../components/forms/Signup";
 import withAuthCard from "../../components/withAuthCard";
+import { useSignupMutation } from "../../features/auth/authService";
 import { SignupValues } from "../../interface/auth";
 import { errorHandler } from "../../lib/utils";
-import { toast } from "sonner";
-import { useSignupMutation } from "../../features/auth/authService";
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ const Signup = () => {
   return (
     <section className="flex flex-col gap-2 md:gap-4">
       <SignupForm onSubmit={handleSignup} />
-      <p className="text-body2 text-reading-1 dark:text-reading-1-dark">
+      <p className="text-body2 text-reading-1 text-center">
         Already have an account?{" "}
         <Link to="/signin" className="text-info">
           Sign In

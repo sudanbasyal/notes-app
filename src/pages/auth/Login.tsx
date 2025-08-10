@@ -39,7 +39,7 @@ const Login = () => {
   return (
     <section className="flex flex-col gap-2 sm:gap-4">
       <LoginForm onSubmit={handleLogin} />
-      <p className="text-body2 text-reading-1 dark:text-reading-1-dark">
+      <p className="text-body2 text-reading-1 text-center">
         Don&apos;t have an account?{" "}
         <Link to="/signup" className="text-info">
           Create Account
