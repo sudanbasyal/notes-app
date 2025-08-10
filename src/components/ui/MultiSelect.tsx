@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Category } from "../../interface/category";
+import { TagIcon } from "lucide-react";
 
 type MultiSelectProps = {
   items: Category[];
@@ -9,7 +10,6 @@ type MultiSelectProps = {
 
 export const MultiSelect: React.FC<MultiSelectProps> = ({
   items,
-  placeholder = "Select...",
   onChange,
 }) => {
   const [selected, setSelected] = useState<Category[]>([]);
@@ -38,6 +38,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
+        e.preventDefault()
+        setSearch('')
         setOpen(false);
       }
     };
@@ -48,55 +50,43 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   }, []);
 
   return (
-    <div ref={ref} className="relative w-56">
-      {/* Trigger */}
-      <div
+    <div ref={ref} className="relative">
+      
+      <button
+        type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="border rounded-lg px-3 py-2 flex items-center justify-between cursor-pointer bg-white"
+        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
       >
-        <span className="text-gray-400">{placeholder}</span>
-        <svg
-          className={`w-4 h-4 text-gray-500 transition-transform ${
-            open ? "rotate-180" : ""
-          }`}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2}
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </div>
+        <TagIcon size="12px"/>
+        Add Category
+      </button>
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute top-full left-0 mt-1 w-full border rounded-lg shadow bg-white z-10">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg outline-none"
-          />
-          <div className="w-full border border-gray-100" />
-          <ul className="max-h-40 overflow-auto">
+        <div className="absolute bottom-full left-0 mb-2 mt-1 w-56 border rounded-lg shadow-lg bg-white z-10">
+          <div className="p-2 border-b">
+            <input
+              type="text"
+              placeholder="Search Categories..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full px-3 py-1.5 bg-gray-50 rounded-md text-sm outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <ul className="max-h-64 overflow-auto py-1">
             {filteredItems.map((item) => (
               <li
                 key={item.id}
                 onClick={() => toggleSelect(item)}
-                className="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-gray-100"
+                className="flex items-center justify-between px-3 py-2 hover:bg-gray-50 cursor-pointer"
               >
                 <div className="flex items-center gap-2">
-                  <span className={`w-3 h-3 rounded-full ${item.color}`} />
-                  {item.name}
+                  <span className={`w-2 h-2 rounded-full ${item.color}`} />
+                  <span className="text-sm">{item.name}</span>
                 </div>
                 {isSelected(item.id) && (
                   <svg
-                    className="w-4 h-4 text-gray-600"
+                    className="w-4 h-4 text-primary"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={2}
@@ -112,7 +102,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               </li>
             ))}
             {filteredItems.length === 0 && (
-              <li className="px-3 py-2 text-gray-400">No results</li>
+              <li className="px-3 py-2 text-sm text-gray-400">No categories found</li>
             )}
           </ul>
         </div>

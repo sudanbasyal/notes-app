@@ -59,7 +59,7 @@ const NoteForm = ({ data, onClose }: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 min-h-[400px] w-full">
+    <div className="flex flex-col gap-4 min-h-[450px] w-full">
       <h1 className="text-heading2 capitalize">
         {title[type as keyof typeof title]}
       </h1>
@@ -72,34 +72,6 @@ const NoteForm = ({ data, onClose }: Props) => {
             <div className="flex-1 overflow-y-auto space-y-4 p-1">
               <TextField name="title" placeholder="Title" />
 
-              <MultiSelect
-                placeholder="categories"
-                items={categoriesData?.categories || []}
-                onChange={(selected) =>
-                  setFieldValue(
-                    "categoryIds",
-                    selected.map((cat) => cat.id)
-                  )
-                }
-              />
-              <div className="flex gap-2 flex-wrap">
-                {values.categoryIds.map((id) => {
-                  const category = getCategoryById(id);
-                  if (!category) return null;
-
-                  return (
-                    <span
-                      key={id}
-                      className="flex items-center gap-1 px-2 py-0.5 bg-gray-200 rounded-full text-sm"
-                    >
-                      <span
-                        className={`w-2.5 h-2.5 rounded-full ${category.color}`}
-                      />
-                      {category.name}
-                    </span>
-                  );
-                })}
-              </div>
               <div className="w-full">
                 <Tiptap
                   content={values.content}
@@ -107,6 +79,39 @@ const NoteForm = ({ data, onClose }: Props) => {
                     setFieldValue("content", newContent)
                   }
                 />
+              </div>
+
+              <div className="space-y-2">
+                <MultiSelect
+                  placeholder="Add tag"
+                  items={categoriesData?.categories || []}
+                  onChange={(selected) =>
+                    setFieldValue(
+                      "categoryIds",
+                      selected.map((cat) => cat.id)
+                    )
+                  }
+                />
+
+                {/* Selected Tags Display */}
+                <div className="flex gap-2 flex-wrap">
+                  {values.categoryIds.map((id) => {
+                    const category = getCategoryById(id);
+                    if (!category) return null;
+
+                    return (
+                      <span
+                        key={id}
+                        className="flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md text-sm"
+                      >
+                        <span
+                          className={`w-2 h-2 rounded-full ${category.color}`}
+                        />
+                        {category.name}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
