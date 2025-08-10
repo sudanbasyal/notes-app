@@ -23,3 +23,11 @@ export interface AuthResponse {
   };
   user: User;
 }
+
+export interface RefreshTokenResponse {
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  meta: Record<string, unknown>;
+}

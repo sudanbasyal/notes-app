@@ -1,7 +1,6 @@
 import { AuthResponse, LoginValues, SignupValues } from "../../interface/auth";
 import { api } from "../api";
 
-// authApi.ts
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<AuthResponse, LoginValues>({

@@ -5,6 +5,7 @@ import ProtectedRoute from "./ProtectedRoutes";
 import Signup from "../pages/auth/Signup";
 import NotesDashboard from "../pages/note";
 
+
 export default function AppRoutes() {
   return (
     <Routes>

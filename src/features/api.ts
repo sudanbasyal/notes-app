@@ -8,6 +8,7 @@ import {
 import { RootState } from "../store";
 import { adjustUsedToken, authTokenChange, logoutUser } from "./auth/authSlice";
 import { tagTypes } from "./tagTypes";
+import { RefreshTokenResponse } from "../interface/auth";
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BACKEND_API_URL,
@@ -33,34 +34,28 @@ const baseQueryWithReauth: BaseQueryFn<
       api.dispatch(logoutUser());
       return result;
     }
-
-    // Try to refresh the token
-    const refreshResult = await baseQuery(
+    api.dispatch(adjustUsedToken(state.auth.refreshToken));
+    const refreshResult = (await baseQuery(
       {
         url: "/auth/refresh-token",
         method: "POST",
-        body: {
-          refreshToken: state.auth.refreshToken
-        }
       },
       api,
       extraOptions
-    );
+    )) as { data: RefreshTokenResponse };
 
     if (refreshResult.data) {
-      // Store the new tokens
-      const tokens = refreshResult.data as { accessToken: string; refreshToken: string };
+      const tokens = refreshResult.data.data;
       api.dispatch(
         authTokenChange({
           accessToken: tokens.accessToken,
           refreshToken: tokens.refreshToken || state.auth.refreshToken,
         })
       );
-      // Retry the original request with the new access token
+
       api.dispatch(adjustUsedToken(tokens.accessToken));
       result = await baseQuery(args, api, extraOptions);
     } else {
-      // If refresh fails, log the user out
       api.dispatch(logoutUser());
     }
   }
