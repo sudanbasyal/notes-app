@@ -59,7 +59,7 @@ const TextField = ({
   };
 
   return (
-    <div className="">
+    <div className="w-full">
       {label && (
         <label
           htmlFor={props.name}

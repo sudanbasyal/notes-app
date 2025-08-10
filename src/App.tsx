@@ -13,6 +13,7 @@ import AppRoutes from "./routes/AppRoutes";
 import { useSelector } from "react-redux";
 import { RootState, useTypedSelector } from "./store";
 import { Toaster } from "sonner";
+import ModalManager from "./components/ModalManager";
 
 // const validationSchema = Yup.object({
 //   search: Yup.string().required("Search is required"),
@@ -127,6 +128,7 @@ function App() {
     <main className="min-h-screen ">
       <AppRoutes />
       <Toaster richColors />
+      <ModalManager />
     </main>
   );
 }

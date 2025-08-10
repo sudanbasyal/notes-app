@@ -43,7 +43,7 @@ const NoteCard = ({ note, onEdit, onDelete }: NoteCardProps) => {
               className="inline-flex items-center gap-2 px-2 py-1 rounded-full text-xs font-medium"
               style={{
                 backgroundColor: category.color
-                  ? `${category.color}20` // transparent background
+                  ? `${category.color}20` 
                   : "#f3f4f6",
                 color: category.color || "#374151",
               }}

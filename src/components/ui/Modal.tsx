@@ -12,22 +12,23 @@ type Props = {
 const Modal = ({ isModalOpen, onClose, children, css }: Props) => {
   if (!isModalOpen) return null;
   return (
-    <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <article className="relative">
+    <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-auto">
+      <article className="relative w-full max-w-[512px]">
         <main
           id="modal-content"
           className={cn(
-            "p-3 pt-4 border border-white max-w-[500px] bg-white rounded-2xl relative",
+            "p-3 pt-4 border border-white bg-white rounded-2xl relative w-full",
             css
           )}
         >
           {children}
-          <div
+          <button
             id="exit-icon"
-            className="cursor-pointer absolute top-4 right-4 hover:bg-primary/5 rounded"
+            className="cursor-pointer absolute top-4 right-4 hover:bg-primary/5 rounded p-1"
+            onClick={onClose}
           >
-            <XIcon onClick={onClose} size="16px" />
-          </div>
+            <XIcon size="16px" />
+          </button>
         </main>
       </article>
     </section>

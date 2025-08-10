@@ -1,12 +1,11 @@
-// menuData.ts
-import { Archive, Pencil, Tag } from "lucide-react";
+
+import { Pencil, Tag } from "lucide-react";
 import { Category } from "../interface/category";
 import { MenuItem } from "../interface/sidebar";
 
 export const topMenu: MenuItem[] = [
   { title: "Notes", icon: Pencil, path: "/notes" },
-  { title: "Archive", icon: Archive, path: "/archive" },
-  { title: "Edit Labels", icon: Tag, path: "/edit-labels" },
+  { title: "Edit Categories", icon: Tag },
 ];
 
 export const labels: Category[] = [

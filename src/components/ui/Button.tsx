@@ -5,7 +5,7 @@ type Props = {
   type?: "button" | "submit";
   icon?: React.ReactNode;
   text?: string;
-  onClick: () => void;
+  onClick?: () => void;
   css?: string;
   disabled?: boolean;
   variant?: "primary" | "ghost";

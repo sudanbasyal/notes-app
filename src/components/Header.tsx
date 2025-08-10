@@ -2,7 +2,6 @@ import { NotebookPen } from "lucide-react";
 import Drawer from "./Drawer";
 import Button from "./ui/Button";
 import SearchBar from "./ui/SearchBar";
-import TextField from "./ui/TextField";
 
 export default function Header() {
   const handleSearch = async (query: string) => {

@@ -18,10 +18,8 @@ const Login = () => {
     values: LoginValues,
     { setSubmitting }: FormikHelpers<LoginValues>
   ) => {
-    console.log(values);
     try {
       const res = await login(values).unwrap();
-      console.log(res);
       dispatch(
         authTokenChange({
           accessToken: res.data.accessToken,
