@@ -104,7 +104,6 @@ const MenuBar = ({ editor }: { editor: Editor }) => {
           <Heading3 size={18} />
         </button>
 
-        {/* <div className="w-px h-6 bg-gray-200 mx-1 self-center" /> */}
 
         <button
           type="button"

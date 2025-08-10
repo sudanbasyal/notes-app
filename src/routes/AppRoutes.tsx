@@ -9,7 +9,6 @@ import NotesDashboard from "../pages/note";
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Public Routes */}
       <Route element={<PublicRoute />}>
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

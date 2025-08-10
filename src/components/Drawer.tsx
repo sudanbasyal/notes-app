@@ -61,7 +61,6 @@ export default function Drawer() {
             
             {/* Drawer Body */}
             <div className="flex-1 overflow-y-auto p-4">
-              {/* Mobile Sidebar without borders */}
               <Sidebar/>
             </div>
           </div>

@@ -64,7 +64,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         Add Category
       </button>
 
-      {/* Dropdown */}
       {open && (
         <div className="absolute bottom-full left-0 mb-2 mt-1 w-56 border rounded-lg shadow-lg bg-white z-10">
           <div className="p-2 border-b">

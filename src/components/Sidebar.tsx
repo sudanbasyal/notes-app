@@ -76,12 +76,10 @@ export default function Sidebar() {
   }
   return (
     <div className="w-full bg-white border border-gray-200 rounded-lg md:mx-4 p-3 h-auto flex-col gap-8">
-      {/* Top Menu */}
       <div className="space-y-2">{topMenu.map(renderMenuItem)}</div>
 
       <hr className="my-2" />
 
-      {/* Filters */}
       <div>
         <h4 className="text-sm text-reading-1 font-semibold mb-2">Filters</h4>
         <div className="flex items-center gap-2">
@@ -109,7 +107,6 @@ export default function Sidebar() {
 
       <hr className="my-4" />
 
-      {/* Categories */}
       <div>
         <h4 className="text-sm text-reading-1 font-semibold mb-2">
           Categories
