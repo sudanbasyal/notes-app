@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { EyeIcon, Trash2 } from "lucide-react";
 import { Note } from "../../interface/note";
 import renderContentAsHTML from "../rich-text-editor/TiptapContentToHTML";
 
@@ -19,7 +19,7 @@ const NoteCard = ({ note, onEdit, onDelete }: NoteCardProps) => {
             onClick={() => onEdit(note)}
             className="p-1 rounded hover:bg-gray-100"
           >
-            <Pencil size={16} />
+            <EyeIcon size={16} />
           </button>
           <button
             onClick={() => onDelete(note.id)}

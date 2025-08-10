@@ -49,7 +49,8 @@ const NoteForm = ({ data, onClose }: Props) => {
   ) => {
     try {
       if (data) {
-        await updateNote({ id: data.id, values });
+        await updateNote({ id: data.id, values }).unwrap();
+        toast.success("Note updated successfully!");
       } else {
         await addNote(values).unwrap();
         toast.success("Note added successfully!");
@@ -98,7 +99,6 @@ const NoteForm = ({ data, onClose }: Props) => {
                   }
                 />
 
-                {/* Selected Tags Display */}
                 <div className="flex gap-2 flex-wrap">
                   {values.categoryIds.map((id) => {
                     const category = getCategoryById(id);
