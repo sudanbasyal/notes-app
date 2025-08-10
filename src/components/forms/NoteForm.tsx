@@ -6,8 +6,13 @@ import TextField from "../ui/TextField";
 import { MultiSelect } from "../ui/MultiSelect";
 import Tiptap from "../rich-text-editor/TiptTap";
 import Button from "../ui/Button";
-import { useAddNoteMutation } from "../../features/note/noteService";
+import {
+  useAddNoteMutation,
+  useUpdateNoteMutation,
+} from "../../features/note/noteService";
 import { useTypedSelector } from "../../store";
+import { toast } from "sonner";
+import { errorHandler } from "../../lib/utils";
 
 type Props = {
   data?: Note;
@@ -22,8 +27,9 @@ const title = {
 const NoteForm = ({ data, onClose }: Props) => {
   const { data: categoriesData } = useGetAllCategoriesQuery();
   const [addNote] = useAddNoteMutation();
+  const [updateNote] = useUpdateNoteMutation();
   const { type } = useTypedSelector((state) => state.modal);
-  //   const [updateNote] = useUpdateNoteMutation();
+
   const initialValues = {
     title: data?.title || "",
     content: data?.content || {
@@ -43,16 +49,14 @@ const NoteForm = ({ data, onClose }: Props) => {
   ) => {
     try {
       if (data) {
-        // Update existing note
-        // await updateNote({ id: data.id, ...values });
+        await updateNote({ id: data.id, values });
       } else {
-        // Create new note
-        console.log(values);
-        // await addNote(values);
+        await addNote(values).unwrap();
+        toast.success("Note added successfully!");
       }
       onClose();
     } catch (error) {
-      console.error("Failed to save note:", error);
+      errorHandler(error,'Failed to save note');
     } finally {
       setSubmitting(false);
     }

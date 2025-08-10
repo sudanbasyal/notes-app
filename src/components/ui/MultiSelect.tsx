@@ -16,7 +16,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null); // Ref for outside click
-
   const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -38,8 +37,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
-        e.preventDefault()
-        setSearch('')
+        setSearch("");
         setOpen(false);
       }
     };
@@ -51,13 +49,12 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
   return (
     <div ref={ref} className="relative">
-      
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
       >
-        <TagIcon size="12px"/>
+        <TagIcon size="12px" />
         Add Category
       </button>
 
@@ -102,7 +99,9 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               </li>
             ))}
             {filteredItems.length === 0 && (
-              <li className="px-3 py-2 text-sm text-gray-400">No categories found</li>
+              <li className="px-3 py-2 text-sm text-gray-400">
+                No categories found
+              </li>
             )}
           </ul>
         </div>

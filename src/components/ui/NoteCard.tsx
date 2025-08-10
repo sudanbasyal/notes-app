@@ -4,8 +4,8 @@ import renderContentAsHTML from "../rich-text-editor/TiptapContentToHTML";
 
 interface NoteCardProps {
   note: Note;
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
+  onEdit: (note: Note) => void;
+  onDelete: (id: number) => void;
 }
 
 const NoteCard = ({ note, onEdit, onDelete }: NoteCardProps) => {
@@ -16,7 +16,7 @@ const NoteCard = ({ note, onEdit, onDelete }: NoteCardProps) => {
         <h3 className="font-semibold text-lg">{note.title}</h3>
         <div className="flex gap-2">
           <button
-            onClick={() => onEdit(note.id)}
+            onClick={() => onEdit(note)}
             className="p-1 rounded hover:bg-gray-100"
           >
             <Pencil size={16} />
@@ -31,7 +31,7 @@ const NoteCard = ({ note, onEdit, onDelete }: NoteCardProps) => {
       </div>
 
       <div
-        className="text-gray-600 text-sm line-clamp-7 overflow-hidden"
+        className="prose prose-sm max-w-none text-gray-600 line-clamp-7 overflow-hidden"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
 
@@ -40,18 +40,9 @@ const NoteCard = ({ note, onEdit, onDelete }: NoteCardProps) => {
           {note.categories.map((category) => (
             <span
               key={category.id}
-              className="inline-flex items-center gap-2 px-2 py-1 rounded-full text-xs font-medium"
-              style={{
-                backgroundColor: category.color
-                  ? `${category.color}20` 
-                  : "#f3f4f6",
-                color: category.color || "#374151",
-              }}
+              className="flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md text-sm"
             >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: category.color || "#9ca3af" }}
-              ></span>
+              <span className={`w-2 h-2 rounded-full ${category.color}`}></span>
               {category.name}
             </span>
           ))}

@@ -2,14 +2,14 @@ import { JSONContent } from "@tiptap/react";
 import { Category } from "./category";
 
 export interface Note {
-  id: string;
+  id: number;
   title: string;
   content: JSONContent;
-  categories: Category[]; 
+  categories: Category[];
 }
 
 export interface NoteFormValues {
-  title:string;
-  content:JSONContent;
-  categoryIds:number[]
+  title: string;
+  content: JSONContent;
+  categoryIds: number[];
 }
