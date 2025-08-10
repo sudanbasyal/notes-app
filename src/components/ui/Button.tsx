@@ -34,7 +34,14 @@ const Button = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={cn(buttonVariants.base, buttonVariants.variants[variant], css)}
+      className={cn(
+        buttonVariants.base,
+        buttonVariants.variants[variant],
+        css,
+        {
+          "bg-primary/20": disabled,
+        }
+      )}
     >
       {icon}
       {text && (
