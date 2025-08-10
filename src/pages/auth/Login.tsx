@@ -8,10 +8,12 @@ import { useDispatch } from "react-redux";
 import { authTokenChange } from "../../features/auth/authSlice";
 import { toast } from "sonner";
 import { errorHandler } from "../../lib/utils";
+import useUser from "../../hooks/useUser";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [login] = useLoginMutation();
+  const { updateUser } = useUser();
   const navigate = useNavigate();
 
   const handleLogin = async (
@@ -26,6 +28,7 @@ const Login = () => {
           refreshToken: res.data.refreshToken,
         })
       );
+      updateUser(res.data.user)
       navigate("/notes");
       toast.success("Login successful!");
     } catch (error) {

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "../../interface/auth";
 import { decrypt, encrypt } from "../../lib/utils";
-const initialState:AuthState = {
-    accessToken: decrypt(localStorage.getItem("accessToken") || ""),
-    refreshToken: decrypt(localStorage.getItem("refreshToken") || ""),
-    usedToken: decrypt(localStorage.getItem("accessToken") || "")
-}
+
+const initialState: AuthState = {
+  accessToken: decrypt(localStorage.getItem("accessToken") || ""),
+  refreshToken: decrypt(localStorage.getItem("refreshToken") || ""),
+  usedToken: decrypt(localStorage.getItem("accessToken") || ""),
+};
 
 const authSlice = createSlice({
   name: "auth",
@@ -13,7 +14,10 @@ const authSlice = createSlice({
   reducers: {
     authTokenChange: (state, action) => {
       localStorage.setItem("accessToken", encrypt(action.payload.accessToken));
-      localStorage.setItem("refreshToken", encrypt(action.payload.refreshToken));
+      localStorage.setItem(
+        "refreshToken",
+        encrypt(action.payload.refreshToken)
+      );
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
       state.usedToken = action.payload.accessToken;
@@ -31,5 +35,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { authTokenChange, logoutUser, adjustUsedToken } = authSlice.actions;
+export const { authTokenChange, logoutUser, adjustUsedToken } =
+  authSlice.actions;
 export default authSlice.reducer;

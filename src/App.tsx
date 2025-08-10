@@ -6,7 +6,7 @@ import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
-    <main className="min-h-screen ">
+    <main className="min-h-screen p-2">
       <AppRoutes />
       <Toaster richColors />
       <ModalManager />

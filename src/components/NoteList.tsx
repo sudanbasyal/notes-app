@@ -58,22 +58,26 @@ export default function NoteList() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="grid gap-3 max-h-[calc(100vh-180px)] overflow-y-auto">
-        {notes.map((note) => (
-          <NoteCard
-            key={note.id}
-            note={note}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
-        ))}
+    <div className="flex flex-col h-[calc(100vh-150px)]">
+      <div className="flex-1 overflow-y-auto">
+        <div className="grid gap-3 pb-4 md:pr-4">
+          {notes.map((note) => (
+            <NoteCard
+              key={note.id}
+              note={note}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
       </div>
-      <Pagination
-        currentPage={page}
-        totalPages={data.meta.lastPage}
-        onPageChange={handlePageChange}
-      />
+      {data.meta.lastPage > 1 && (
+        <Pagination
+          currentPage={page}
+          totalPages={data.meta.lastPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 }

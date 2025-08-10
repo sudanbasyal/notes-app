@@ -40,7 +40,7 @@ const NoteCard = ({ note, onEdit, onDelete }: NoteCardProps) => {
           {note.categories.map((category) => (
             <span
               key={category.id}
-              className="flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md text-sm"
+              className="flex items-center gap-2 px-2 py-0.5 bg-gray-100 text-reading-1 rounded-md text-sm capitalize"
             >
               <span className={`w-2 h-2 rounded-full ${category.color}`}></span>
               {category.name}

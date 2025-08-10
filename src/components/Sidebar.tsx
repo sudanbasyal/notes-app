@@ -48,7 +48,7 @@ export default function Sidebar() {
   const renderCategoryItem = (category: Category) => (
     <button
       key={category.id}
-      className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 w-full text-left"
+      className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 w-full text-left capitalize"
       onClick={() => {
         dispatch(setCategoryId(category.id));
       }}
@@ -63,12 +63,13 @@ export default function Sidebar() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="hidden md:flex w-full bg-white border border-gray-100 rounded-lg mx-4 p-3 h-auto flex-col gap-4">
+    <div className="w-full bg-white border border-gray-200 rounded-lg md:mx-4 p-3 h-auto flex-col gap-8">
       {/* Top Menu */}
       <div className="space-y-2">{topMenu.map(renderMenuItem)}</div>
 
-      {/* Filters */}
       <hr className="my-2" />
+
+      {/* Filters */}
       <div>
         <h4 className="text-sm text-reading-1 font-semibold mb-2">Filters</h4>
         <div className="flex items-center gap-2">
@@ -94,7 +95,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <hr className="my-2" />
+      <hr className="my-4" />
 
       {/* Categories */}
       <div>

@@ -15,7 +15,7 @@ export default function Header() {
     dispatch(setSearch(query))
   };
   return (
-    <section className="grid grid-cols-[44px_1fr_44px] md:grid-cols-[230px_1fr] gap-4 p-4">
+    <section className="grid grid-cols-[44px_1fr_44px] md:grid-cols-[230px_1fr] gap-4 px-4 py-2">
       <Drawer />
       <div className="order-2 flex-1 max-w-56">
         <SearchBar onSearch={handleSearch} placeholder="Search notes..." />

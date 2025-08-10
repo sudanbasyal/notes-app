@@ -20,8 +20,8 @@ export interface AuthResponse {
   data: {
     accessToken: string;
     refreshToken: string;
+    user: User;
   };
-  user: User;
 }
 
 export interface RefreshTokenResponse {

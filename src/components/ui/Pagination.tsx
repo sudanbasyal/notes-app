@@ -1,4 +1,3 @@
-
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
@@ -8,13 +7,12 @@ type PaginationProps = {
 const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  if(currentPage === totalPages) return null
   return (
-    <div className="flex justify-center gap-2 mt-4">
+    <div className="flex justify-center gap-2 py-2">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-1 rounded border disabled:opacity-50"
+        className="px-3 rounded border disabled:opacity-50"
       >
         Previous
       </button>

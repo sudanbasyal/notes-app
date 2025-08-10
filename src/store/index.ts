@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "../features/auth/authSlice";
 import modalSlice from "../features/modal/modalSlice";
 import noteSlice from "../features/note/noteSlice";
+import drawerSlice from "../features/drawer/drawerSlice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { api } from "../features/api";
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     auth: authSlice,
     modal: modalSlice,
     note: noteSlice,
+    drawer: drawerSlice,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
