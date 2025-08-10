@@ -115,7 +115,7 @@ export default function Sidebar() {
         <h4 className="text-sm text-reading-1 font-semibold mb-2">
           Categories
         </h4>
-        <ul className="space-y-1 max-h-64 overflow-y-auto">
+        <ul className=" max-h-64 overflow-y-auto">
           {categories?.map(renderCategoryItem)}
         </ul>
       </div>
