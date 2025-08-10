@@ -3,6 +3,7 @@ import { closeModal } from "../features/modal/modalSlice";
 import { useTypedSelector } from "../store";
 import CategoryForm from "./forms/CategoryForm";
 import Modal from "./ui/Modal";
+import NoteForm from "./forms/NoteForm";
 
 const ModalManager = () => {
   const { isOpen, type, data } = useTypedSelector((state) => state.modal);
@@ -13,6 +14,7 @@ const ModalManager = () => {
 
   const ModalContent = {
     "edit-categories": <CategoryForm />,
+    "add-note": <NoteForm onClose={handleClose} />,
   };
 
   if (!isOpen || !type) return null;

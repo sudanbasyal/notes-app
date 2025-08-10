@@ -43,7 +43,7 @@ const CategoryLists = ({
                 setSubmitting(false);
               }}
             >
-              {({ handleSubmit }) => (
+              {({ isSubmitting }) => (
                 <Form className="flex items-center gap-2 flex-1">
                   <TextField
                     name="name"
@@ -51,8 +51,10 @@ const CategoryLists = ({
                     css="flex-1"
                   />
                   <Button
+                    type="submit"
                     variant="ghost"
-                    onClick={() => handleSubmit()}
+                    disabled={isSubmitting}
+                    // onClick={() => handleSubmit()}
                     icon={<CheckIcon size="12px" color="green" />}
                   />
                   <Button

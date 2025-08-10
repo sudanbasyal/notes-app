@@ -1,15 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-
-type MenuItem = {
-  id: number;
-  label: string;
-  color: string; 
-};
+import { Category } from "../../interface/category";
 
 type MultiSelectProps = {
-  items: MenuItem[];
+  items: Category[];
   placeholder?: string;
-  onChange?: (selected: MenuItem[]) => void;
+  onChange?: (selected: Category[]) => void;
 };
 
 export const MultiSelect: React.FC<MultiSelectProps> = ({
@@ -17,16 +12,16 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   placeholder = "Select...",
   onChange,
 }) => {
-  const [selected, setSelected] = useState<MenuItem[]>([]);
+  const [selected, setSelected] = useState<Category[]>([]);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null); // Ref for outside click
 
   const filteredItems = items.filter((item) =>
-    item.label.toLowerCase().includes(search.toLowerCase())
+    item.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const toggleSelect = (item: MenuItem) => {
+  const toggleSelect = (item: Category) => {
     let newSelected;
     if (selected.find((s) => s.id === item.id)) {
       newSelected = selected.filter((s) => s.id !== item.id);
@@ -59,7 +54,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         onClick={() => setOpen((prev) => !prev)}
         className="border rounded-lg px-3 py-2 flex items-center justify-between cursor-pointer bg-white"
       >
-        
         <span className="text-gray-400">{placeholder}</span>
         <svg
           className={`w-4 h-4 text-gray-500 transition-transform ${
@@ -70,7 +64,11 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           strokeWidth={2}
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </div>
 
@@ -84,7 +82,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             onChange={(e) => setSearch(e.target.value)}
             className="w-full px-3 py-2 rounded-lg outline-none"
           />
-          <div className="w-full border border-gray-100"/>
+          <div className="w-full border border-gray-100" />
           <ul className="max-h-40 overflow-auto">
             {filteredItems.map((item) => (
               <li
@@ -94,7 +92,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               >
                 <div className="flex items-center gap-2">
                   <span className={`w-3 h-3 rounded-full ${item.color}`} />
-                  {item.label}
+                  {item.name}
                 </div>
                 {isSelected(item.id) && (
                   <svg

@@ -2,8 +2,14 @@ import { NotebookPen } from "lucide-react";
 import Drawer from "./Drawer";
 import Button from "./ui/Button";
 import SearchBar from "./ui/SearchBar";
+import { useDispatch } from "react-redux";
+import { openModal } from "../features/modal/modalSlice";
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const handleAddNoteClick = () => {
+    dispatch(openModal({ type: "add-note" }));
+  };
   const handleSearch = async (query: string) => {
     console.log(query);
   };
@@ -17,7 +23,7 @@ export default function Header() {
         text="Add Note"
         icon={<NotebookPen size="12px" />}
         variant="primary"
-        onClick={() => {}}
+        onClick={handleAddNoteClick}
         css="order-3 md:order-1"
       />
     </section>

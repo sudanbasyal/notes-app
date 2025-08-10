@@ -117,7 +117,6 @@ const notes: Note[] = [
       },
     ],
   },
-  // more notes...
 ];
 
 export default function NoteList() {

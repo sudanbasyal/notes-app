@@ -31,7 +31,7 @@ const Tiptap = ({ content, onChange }: TiptapProps) => {
   }
 
   return (
-    <div className="border rounded-lg bg-white w-full max-w-[450px]">
+    <div className="border rounded-lg bg-white w-full">
       <MenuBar editor={editor} />
       <div className="border-t ">
         <EditorContent editor={editor} />
