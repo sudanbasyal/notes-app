@@ -56,7 +56,7 @@ const NoteForm = ({ data, onClose }: Props) => {
       }
       onClose();
     } catch (error) {
-      errorHandler(error,'Failed to save note');
+      errorHandler(error, "Failed to save note");
     } finally {
       setSubmitting(false);
     }
@@ -88,6 +88,7 @@ const NoteForm = ({ data, onClose }: Props) => {
               <div className="space-y-2">
                 <MultiSelect
                   placeholder="Add tag"
+                  value={values.categoryIds}
                   items={categoriesData?.categories || []}
                   onChange={(selected) =>
                     setFieldValue(

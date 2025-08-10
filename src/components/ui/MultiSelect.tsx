@@ -6,16 +6,22 @@ type MultiSelectProps = {
   items: Category[];
   placeholder?: string;
   onChange?: (selected: Category[]) => void;
+  value?: number[];
 };
 
 export const MultiSelect: React.FC<MultiSelectProps> = ({
   items,
   onChange,
+  value = [],
 }) => {
-  const [selected, setSelected] = useState<Category[]>([]);
+  const [selected, setSelected] = useState<Category[]>(() => {
+    return items.filter((item) => value.includes(item.id));
+  });
+
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null); // Ref for outside click
+
   const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
