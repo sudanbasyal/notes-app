@@ -28,7 +28,7 @@ export default function Sidebar() {
   };
 
   const handleClickCategories = (category: Category) => {
-    if (categoryId) {
+    if (categoryId === category.id) {
       return dispatch(setCategoryId(null));
     }
     dispatch(setCategoryId(category.id));
@@ -58,9 +58,12 @@ export default function Sidebar() {
   const renderCategoryItem = (category: Category) => (
     <button
       key={category.id}
-      className={cn("flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 w-full text-left capitalize", {
-        "bg-gray-100": categoryId === category.id,
-      })} 
+      className={cn(
+        "flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 w-full text-left capitalize",
+        {
+          "bg-gray-100": categoryId === category.id,
+        }
+      )}
       onClick={() => {
         handleClickCategories(category);
       }}
@@ -96,6 +99,7 @@ export default function Sidebar() {
           </select>
           <button
             className="p-1.5 hover:bg-gray-100 rounded-md"
+            title={`Sort order: ${orderBy}`}
             onClick={() =>
               dispatch(setOrder(orderBy === "ASC" ? "DESC" : "ASC"))
             }
