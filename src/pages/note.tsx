@@ -8,7 +8,7 @@ export default function NotesDashboard() {
     <section className="flex flex-col h-full rounded-lg border border-gray-200 ">
       <div className="flex flex-col  rounded-lg ">
         <div className="w-full flex justify-between border-b py-2 px-4">
-          <h3 className="text-title1 font-semibold">EasyNotes</h3>
+          <h3 className="text-title1 font-semibold text-primary">EasyNotes</h3>
           <UserDropdown />
         </div>
         <Header />
