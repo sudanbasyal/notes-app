@@ -16,12 +16,22 @@ export default function Sidebar() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { data, isLoading } = useGetAllCategoriesQuery();
-  const { sortBy, orderBy } = useTypedSelector((state) => state.note);
+  const { sortBy, orderBy, categoryId } = useTypedSelector(
+    (state) => state.note
+  );
+
   const categories = data?.categories;
 
   const handleClick = (path?: string) => {
     if (path && path === "/notes") return;
     dispatch(openModal({ type: "edit-categories" }));
+  };
+
+  const handleClickCategories = (category: Category) => {
+    if (categoryId) {
+      return dispatch(setCategoryId(null));
+    }
+    dispatch(setCategoryId(category.id));
   };
 
   const renderMenuItem = (item: MenuItem) => {
@@ -48,9 +58,11 @@ export default function Sidebar() {
   const renderCategoryItem = (category: Category) => (
     <button
       key={category.id}
-      className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 w-full text-left capitalize"
+      className={cn("flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 w-full text-left capitalize", {
+        "bg-gray-100": categoryId === category.id,
+      })} 
       onClick={() => {
-        dispatch(setCategoryId(category.id));
+        handleClickCategories(category);
       }}
     >
       <span className={cn("w-2 h-2 rounded-full", category.color)} />
