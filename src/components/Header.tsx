@@ -4,6 +4,7 @@ import Button from "./ui/Button";
 import SearchBar from "./ui/SearchBar";
 import { useDispatch } from "react-redux";
 import { openModal } from "../features/modal/modalSlice";
+import { setSearch } from "../features/note/noteSlice";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ export default function Header() {
     dispatch(openModal({ type: "add-note" }));
   };
   const handleSearch = async (query: string) => {
-    console.log(query);
+    dispatch(setSearch(query))
   };
   return (
     <section className="grid grid-cols-[44px_1fr_44px] md:grid-cols-[230px_1fr] gap-4 p-4">

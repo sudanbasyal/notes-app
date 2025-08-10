@@ -13,3 +13,24 @@ export interface NoteFormValues {
   content: JSONContent;
   categoryIds: number[];
 }
+
+export type SortField = "title" | "createdAt" | "updatedAt";
+export type SortOrder = "ASC" | "DESC";
+
+export interface NoteSlice {
+  search: string;
+  sortBy: SortField | "";
+  orderBy: SortOrder | "";
+  categoryId: number | null;
+}
+
+export interface AllNoteResponse {
+  data: Note[];
+  meta: {
+    total: number;
+    page: number;
+    lastPage: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
+}

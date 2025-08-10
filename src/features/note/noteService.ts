@@ -1,12 +1,22 @@
-import { Note, NoteFormValues } from "../../interface/note";
+import { AllNoteResponse, Note, NoteFormValues } from "../../interface/note";
 import { api } from "../api";
 
 const notesApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAllNotes: builder.query<{ data: Note[] }, void>({
-      query: () => ({
+    getAllNotes: builder.query<
+      AllNoteResponse,
+      {
+        page: number;
+        search?: string;
+        sortBy?: string;
+        orderBy?: string;
+        categoryId?: number;
+      }
+    >({
+      query: (params) => ({
         url: "/notes",
         method: "GET",
+        params: { pageSize: 6, ...params },
       }),
       providesTags: ["notes"],
     }),

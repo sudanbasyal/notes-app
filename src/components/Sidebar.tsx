@@ -6,11 +6,17 @@ import { MenuItem } from "../interface/sidebar";
 import { cn } from "../lib/utils";
 import { useDispatch } from "react-redux";
 import { openModal } from "../features/modal/modalSlice";
+import { setCategoryId, setOrder, setSortBy } from "../features/note/noteSlice";
+import { SortField } from "../interface/note";
+import { useTypedSelector } from "../store";
+import { sortOptions } from "../constants/sortOptions";
+import { SortAsc, SortDesc } from "lucide-react";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { data, isLoading } = useGetAllCategoriesQuery();
+  const { sortBy, orderBy } = useTypedSelector((state) => state.note);
   const categories = data?.categories;
 
   const handleClick = (path?: string) => {
@@ -43,6 +49,9 @@ export default function Sidebar() {
     <button
       key={category.id}
       className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 w-full text-left"
+      onClick={() => {
+        dispatch(setCategoryId(category.id));
+      }}
     >
       <span className={cn("w-2 h-2 rounded-full", category.color)} />
       {category.name}
@@ -58,7 +67,33 @@ export default function Sidebar() {
       {/* Top Menu */}
       <div className="space-y-2">{topMenu.map(renderMenuItem)}</div>
 
-      {/* Divider */}
+      {/* Filters */}
+      <hr className="my-2" />
+      <div>
+        <h4 className="text-sm text-reading-1 font-semibold mb-2">Filters</h4>
+        <div className="flex items-center gap-2">
+          <select
+            className="px-2 py-1.5 rounded-md border text-sm"
+            value={sortBy}
+            onChange={(e) => dispatch(setSortBy(e.target.value as SortField))}
+          >
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                Sort by {option.label}
+              </option>
+            ))}
+          </select>
+          <button
+            className="p-1.5 hover:bg-gray-100 rounded-md"
+            onClick={() =>
+              dispatch(setOrder(orderBy === "ASC" ? "DESC" : "ASC"))
+            }
+          >
+            {orderBy === "ASC" ? <SortAsc size={16} /> : <SortDesc size={16} />}
+          </button>
+        </div>
+      </div>
+
       <hr className="my-2" />
 
       {/* Categories */}

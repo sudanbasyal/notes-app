@@ -8,10 +8,23 @@ import { errorHandler } from "../lib/utils";
 import NoteCard from "./ui/NoteCard";
 import { useDispatch } from "react-redux";
 import { openModal } from "../features/modal/modalSlice";
+import { useTypedSelector } from "../store";
+import { useState } from "react";
+import Pagination from "./ui/Pagination";
 
 export default function NoteList() {
   const dispatch = useDispatch();
-  const { data, isLoading } = useGetAllNotesQuery();
+  const [page, setPage] = useState(1);
+  const { search, sortBy, orderBy, categoryId } = useTypedSelector(
+    (state) => state.note
+  );
+  const { data, isLoading } = useGetAllNotesQuery({
+    page,
+    ...(search && { search }),
+    ...(sortBy && { sortBy }),
+    ...(orderBy && { orderBy }),
+    ...(categoryId && { categoryId }),
+  });
   const [deleteNote] = useDeleteNoteMutation();
   const notes = data?.data;
 
@@ -33,6 +46,10 @@ export default function NoteList() {
     );
   };
 
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -41,15 +58,22 @@ export default function NoteList() {
   }
 
   return (
-    <div className="grid gap-3">
-      {notes.map((note) => (
-        <NoteCard
-          key={note.id}
-          note={note}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
-      ))}
+    <div className="flex flex-col gap-4">
+      <div className="grid gap-3 max-h-[calc(100vh-180px)] overflow-y-auto">
+        {notes.map((note) => (
+          <NoteCard
+            key={note.id}
+            note={note}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ))}
+      </div>
+      <Pagination
+        currentPage={page}
+        totalPages={data.meta.lastPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }

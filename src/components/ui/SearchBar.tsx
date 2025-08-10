@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useDebounce } from "../../hooks/useDebounce";
 import { Search } from "lucide-react";
+import { useDebounce } from "../../hooks/useDebounce";
+import { useEffect } from "react";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -11,21 +11,15 @@ const SearchBar = ({
   onSearch,
   placeholder = "Search...",
 }: SearchBarProps) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const debouncedSearch = useDebounce(searchQuery, 500);
-
-  useEffect(() => {
-    if (debouncedSearch) {
-      onSearch(debouncedSearch);
-    }
-  }, [debouncedSearch, onSearch]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onSearch(e.target.value);
+  };
 
   return (
     <div className="relative flex items-center w-full max-w-md">
       <input
         type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={handleChange}
         placeholder={placeholder}
         className="w-full py-[7px] pl-10 pr-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/40 focus:border-primary/40 outline-none"
       />
@@ -34,4 +28,4 @@ const SearchBar = ({
   );
 };
 
-export default SearchBar
+export default SearchBar;

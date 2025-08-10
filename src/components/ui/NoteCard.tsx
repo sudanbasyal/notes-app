@@ -11,7 +11,7 @@ interface NoteCardProps {
 const NoteCard = ({ note, onEdit, onDelete }: NoteCardProps) => {
   const htmlContent = renderContentAsHTML(note.content);
   return (
-    <div className="border border-gray-100 rounded-lg p-4 bg-white shadow-sm flex flex-col gap-2 max-h-80 hover:shadow-lg">
+    <div className="border border-gray-100 rounded-lg p-4 bg-white shadow-sm flex flex-col gap-2 max-h-80 ">
       <div className="flex justify-between items-center">
         <h3 className="font-semibold text-lg">{note.title}</h3>
         <div className="flex gap-2">
