@@ -13,7 +13,7 @@ import {
 import { useTypedSelector } from "../../store";
 import { toast } from "sonner";
 import { errorHandler } from "../../lib/utils";
-
+import * as Yup from "yup";
 type Props = {
   data?: Note;
   onClose: () => void;
@@ -24,6 +24,21 @@ const title = {
   "add-note": "Create Note",
 };
 
+const NoteSchema = Yup.object().shape({
+  title: Yup.string()
+    .trim()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters"),
+  content: Yup.object()
+    .test("is-not-empty", "Content is required", (value) => {
+      return value && Object.keys(value).length > 0;
+    })
+    .required("Content is required"),
+  categoryIds: Yup.array()
+    .min(1, "Please select at least one category")
+    .required("Categories are required"),
+});
+
 const NoteForm = ({ data, onClose }: Props) => {
   const { data: categoriesData } = useGetAllCategoriesQuery();
   const [addNote] = useAddNoteMutation();
@@ -32,10 +47,7 @@ const NoteForm = ({ data, onClose }: Props) => {
 
   const initialValues = {
     title: data?.title || "",
-    content: data?.content || {
-      type: "doc",
-      content: [],
-    },
+    content: data?.content || {},
     categoryIds: data?.categories?.map((cat) => cat.id) || [],
   };
 
@@ -70,20 +82,22 @@ const NoteForm = ({ data, onClose }: Props) => {
       </h1>
       <Formik<NoteFormValues>
         initialValues={initialValues}
+        validationSchema={NoteSchema}
         onSubmit={handleNoteSubmit}
       >
-        {({ values, setFieldValue, isSubmitting }) => (
-          <Form>
+        {({ values, setFieldValue, isSubmitting, errors, touched }) => (
+          <Form className="flex flex-col h-full">
             <div className="flex-1 overflow-y-auto space-y-4 p-1">
               <TextField name="title" placeholder="Title" />
 
               <div className="w-full">
                 <Tiptap
                   content={values.content}
-                  onChange={(newContent) =>
-                    setFieldValue("content", newContent)
-                  }
+                  onChange={(newContent) => setFieldValue("content", newContent)}
                 />
+                {touched.content && typeof errors.content === 'string' && (
+                  <p className="text-sm text-red-500 mt-1">{errors.content}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -117,6 +131,9 @@ const NoteForm = ({ data, onClose }: Props) => {
                     );
                   })}
                 </div>
+                {touched.categoryIds && errors.categoryIds && (
+                  <p className="text-sm text-red-500">{errors.categoryIds}</p>
+                )}
               </div>
             </div>
 
