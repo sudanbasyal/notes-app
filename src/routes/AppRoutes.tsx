@@ -4,7 +4,7 @@ import Login from "../pages/auth/Login";
 import ProtectedRoute from "./ProtectedRoutes";
 import Signup from "../pages/auth/Signup";
 import NotesDashboard from "../pages/note";
-import NotFoundPage from "../components/ui/NotFoundPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 export default function AppRoutes() {
   return (
@@ -17,7 +17,6 @@ export default function AppRoutes() {
       <Route element={<ProtectedRoute />}>
         <Route path="/notes" element={<NotesDashboard />} />
       </Route>
-      {/* Optionally, add a NotFound page here */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
