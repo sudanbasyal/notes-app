@@ -76,7 +76,7 @@ const SignupForm = ({ onSubmit }: SignupFormProps) => {
           />
           <Button
             type="submit"
-            text="Login"
+            text="Sign Up"
             css="w-full mt-2"
             disabled={isSubmitting}
           />
