@@ -23,7 +23,6 @@ This is a React + TypeScript frontend application using Vite, Redux Toolkit, Rea
 
 - [Node.js](https://nodejs.org/en/download/) (version 18.x or higher)
 - [npm](https://www.npmjs.com/) 
-- [PostgreSQL](https://www.postgresql.org/)
 
 ## Project Setup
 
